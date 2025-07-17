@@ -33,6 +33,7 @@ public class ConnectorHolder : MonoBehaviour
 
     public void SetConnector(Operador connector)
     {
+        image = GetComponent<Image>();
         if (image != null)
         {
             operador = connector;

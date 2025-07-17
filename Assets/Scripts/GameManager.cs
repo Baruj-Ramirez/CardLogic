@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         NodoProposicion nodoActual = listaProposiciones[indiceProposicionActual];
         truthHolder.SetTValue(nodoActual.resultado);
-        if (indiceProposicionActual == 0)
+        if (colaConectores.Count == totalProposiciones)
         {
             connectorHolder1.SetConnector(colaConectores.Dequeue());
             connectorHolder2.SetConnector(colaConectores.Dequeue());
@@ -70,7 +70,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            connectorHolder1.SetConnector(connectorHolder2.GetConnector());
+            if (connectorHolder2.IsComplete())
+            {
+                connectorHolder1.Complete();
+            }
+            else
+            {
+                connectorHolder1.SetConnector(connectorHolder2.GetConnector());
+            }
             if (connectorHolder3.IsComplete())
             {
                 connectorHolder2.Complete();
@@ -188,6 +195,7 @@ public class GameManager : MonoBehaviour
         CrearCarta(Random.value > 0.5f ? ValorVerdad.Verdadero : ValorVerdad.Falso);
         proposicionActual.MostrarOperador();
 
+        UpdateHolders();
         UpdateHolders();
 
 
